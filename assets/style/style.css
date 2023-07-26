@@ -401,3 +401,7 @@ p {
     font-size: 20px;
     font-weight: bolder;
 }
+
+.logo {
+    width: 5rem;
+}
