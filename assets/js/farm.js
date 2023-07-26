@@ -10,7 +10,10 @@ const options = {
             filtroMayor:[],
             filtroMenor:[],
             aleatorio:[],
-            productosStockbajo:[]
+            productosStockbajo:[],
+            arrayNormal:[],
+            arrayCruzado:[],
+            catAnimal:[]
         }
     },
     created(){
@@ -19,7 +22,9 @@ const options = {
         .then(datosApi =>{
            this.arrayFarmacia = datosApi.filter(producto => producto.categoria == 'farmacia')
            console.log(this.arrayFarmacia);
+
            this.productosStockbajo = this.arrayFarmacia.filter(producto=> producto.disponibles <=5 )
+
            console.log(this.productosStockbajo)
         })
     },
@@ -37,14 +42,29 @@ const options = {
             this.isScrolled = window.scrollY > 0;
         },
         filtroPrecioMenor(){
-            this.filtroMenor = this.productosStockbajo.sort((a,b) => a.precio - b.precio)
-            this.productosStockbajo = this.filtroMenor
+            this.filtroMenor = this.arrayCruzado.sort((a,b) => a.precio - b.precio)
+            this.arrayCruzado = this.filtroMenor
+           console.log(this.productosStockbajo);
+
         },
         filtroPrecioMayor(){
-            this.filtroMayor = this.productosStockbajo.sort((a,b) => b.precio - a.precio)
-            this.productosStockbajo = this.filtroMayor
+            this.filtroMayor = this.arrayCruzado.sort((a,b) => b.precio - a.precio)
+            this.arrayCruzado = this.filtroMayor
+           console.log(this.productosStockbajo);
+
         },
+        filtroAl(){
+           this.arrayCruzado= this.productosStockbajo
     },
+    },
+    computed:{
+        cruzado(){
+            this.arrayCruzado = this.productosStockbajo.filter(producto => { 
+                return producto.producto.toLowerCase().includes( this.catAnimal ) })
+                console.log(this.catAnimal);
+                console.log(this.arrayCruzado);
+            }
+    }
 }
 const app = createApp(options);
 app.mount('#app');
