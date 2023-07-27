@@ -79,12 +79,10 @@ html {
         background: var(--color-black);
     }
 }
-
 .btn-submit {
     width: 100%;
     text-align: center;
 }
-
 .btn-white {
     color: white;
     border-color: white;
@@ -123,7 +121,6 @@ nav.navbar {
         transform: translateY(0rem);
     }
 }
-
 .navbar-nav a {
     margin: 0 1rem;
     font-size: 1.7rem;
@@ -133,12 +130,10 @@ nav.navbar {
         color: var(--color-carrot);
     }
 }
-
 .navbar-brand {
     font-size: 3rem;
     color: var(--color-black);
 }
-
 .navbar-icons i {
     font-size: 2.5rem;
     margin-left: 1.5rem;
@@ -200,24 +195,18 @@ nav.navbar {
             text-decoration: underline;
         }
     }
-
     animation: fadeIn .4s linear;
 }
-
 @keyframes fadeIn {
     0% {
         opacity: 0;
         transform: translateY(3rem);
     }
 }
-
-.fade-enter-active,
-.fade-leave-active {
+.fade-enter-active, .fade-leave-active {
     transition: opacity .4s, transform .4s;
 }
-
-.fade-enter,
-.fade-leave-to {
+.fade-enter, .fade-leave-to {
     opacity: 0;
     transform: translateY(3rem);
 }
@@ -229,10 +218,10 @@ header {
     background-position: 50% 25%;
     padding: 5rem 9%;
     position: relative;
-
+    
     & .container-header {
         width: 50rem;
-
+        
         & h3 {
             font-size: 6rem;
             color: white;
@@ -246,8 +235,7 @@ header {
 
     & svg {
         position: absolute;
-        bottom: 0;
-        left: 0;
+        bottom: 0; left: 0;
         width: 100%;
     }
 }
@@ -660,7 +648,6 @@ section.gallery {
 }
 
 .footer {
-
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -748,15 +735,21 @@ section.gallery {
         padding: 5rem 2rem;
         justify-content: center;
         background-position: right;
-      
-.formulario {
-    height: 41rem;
-    font-size: 2rem;
+
+        & .container-header {
+            text-align: center;
+            padding-bottom: 5rem;
+
+            & h3 {
+                font-size: 4.5rem;
+            }
+        }
+    }
+    section {
+        padding: 5rem 2rem;
+    }
 }
 
-#fondoMapa {
-    background-image: url(../images/pngegg.png)
-}
 @media (max-width:768px) {
     nav {
         & .navbar-nav {
@@ -801,5 +794,4 @@ section.gallery {
             }
         }
     }
-
 }
