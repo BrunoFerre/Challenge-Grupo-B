@@ -41,6 +41,10 @@ html {
     }
 }
 
+.logo {
+    width: 5rem;
+}
+
 .btn {
     display: inline-block;
     margin: 1.5rem 0;
@@ -336,7 +340,7 @@ section.service_cut {
             &:hover {
                 transform: rotate(15deg);
             }
-            
+
             & a {
                 position: relative;
 
@@ -345,12 +349,13 @@ section.service_cut {
                     margin-top: 1rem;
                 }
             }
-    
+
             & span {
                 font-size: 2rem;
                 color: white;
                 position: absolute;
-                bottom: -12px; left: 70px;
+                bottom: -12px;
+                left: 70px;
                 rotate: 347deg;
                 text-transform: uppercase;
             }
@@ -371,7 +376,8 @@ section.service_cut {
     & .container-service {
         & .service-button {
             & span {
-                bottom: 0; left: 100px;
+                bottom: 0;
+                left: 100px;
             }
         }
     }
@@ -459,7 +465,8 @@ section.plan .container-plan {
 
         & .btn-plan {
             position: absolute;
-            bottom: -2rem; right: 2rem;
+            bottom: -2rem;
+            right: 2rem;
             background: white;
         }
 
@@ -488,20 +495,24 @@ section.plan .container-plan {
         & .fa-star {
             font-size: 2.5rem;
             position: absolute;
-            top: 50%; left: 50%;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
             color: white;
         }
+
         & .fa-gem {
             font-size: 2rem;
             position: absolute;
-            top: 50%; left: 50%;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -35%);
             color: white;
         }
 
         & .list {
             margin: 1rem 0;
+
             & p {
                 display: flex;
                 align-items: center;
@@ -705,7 +716,8 @@ section.gallery {
 
     & .img-wave {
         position: absolute;
-        top: 0; left: 0;
+        top: 0;
+        left: 0;
         height: 10rem;
         width: 100%;
     }
@@ -723,12 +735,12 @@ section.gallery {
         }
     }
 
-    
+
     & .footer-text {
         text-align: center;
         color: white;
         font-size: 2rem;
-        padding:2rem 1rem;
+        padding: 2rem 1rem;
         margin-top: 2.5rem;
 
         & span {
@@ -741,65 +753,159 @@ section.gallery {
     html {
         font-size: 55%;
     }
+
     nav {
         padding: 2rem;
     }
+
     header {
         padding: 5rem 2rem;
         justify-content: center;
         background-position: right;
-      
-.formulario {
-    height: 41rem;
-    font-size: 2rem;
+
+        .formulario {
+            height: 41rem;
+            font-size: 2rem;
+        }
+
+        #fondoMapa {
+            background-image: url(../images/pngegg.png)
+        }
+
+        @media (max-width:768px) {
+            nav {
+                & .navbar-nav {
+                    position: absolute;
+                    top: 99%;
+                    left: 0;
+                    right: 0;
+                    background: white;
+
+                    & a {
+                        display: block;
+                        margin: 2rem;
+                        font-size: 2rem;
+                    }
+                }
+
+                & .navbar-toggler {
+                    display: inline-block;
+                }
+            }
+        }
+
+        @media (max-width:450px) {
+            html {
+                font-size: 50%;
+            }
+
+            nav .form-login {
+                width: 90%;
+            }
+
+            section.service_pet {
+                & .container-service {
+                    & .service-button {
+                        & span {
+                            bottom: -10px;
+                            left: 60px;
+                        }
+                    }
+                }
+            }
+
+            section.service_cut {
+                & .container-service {
+                    & .service-button {
+                        & span {
+                            bottom: 0;
+                            left: 95px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.cover img {
+    height: 100%;
+    width: 100%;
+}
+
+.book {
+    position: relative;
+    border-radius: 10px;
+    width: 220px;
+    height: 300px;
+    background-color: whitesmoke;
+    -webkit-box-shadow: 1px 1px 12px #000;
+    box-shadow: 1px 1px 12px #000;
+    -webkit-transform: preserve-3d;
+    -ms-transform: preserve-3d;
+    transform: preserve-3d;
+    -webkit-perspective: 2000px;
+    perspective: 2000px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    color: #000;
+}
+
+.cover {
+    top: 0;
+    position: absolute;
+    background-color: lightgray;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+    -webkit-transform-origin: 0;
+    -ms-transform-origin: 0;
+    transform-origin: 0;
+    -webkit-box-shadow: 1px 1px 12px #000;
+    box-shadow: 1px 1px 12px #000;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.book:hover .cover {
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+    -webkit-transform: rotatey(-80deg);
+    -ms-transform: rotatey(-80deg);
+    transform: rotatey(-80deg);
+}
+
+p {
+    font-size: 20px;
+    font-weight: bolder;
 }
 
 #fondoMapa {
     background-image: url(../images/pngegg.png)
 }
-@media (max-width:768px) {
-    nav {
-        & .navbar-nav {
-            position: absolute;
-            top: 99%; left: 0; right: 0;
-            background: white;
 
-            & a {
-                display: block;
-                margin: 2rem;
-                font-size: 2rem;
-            }
-        }
-        & .navbar-toggler {
-            display: inline-block;
-        }
-    }
+#h2Mapa {
+    font-size: 4rem;
 }
 
-@media (max-width:450px) {
-    html {
-        font-size: 50%;
-    }
-    nav .form-login {
-        width: 90%;
-    }
-    section.service_pet {
-        & .container-service {
-            & .service-button {
-                & span {
-                    bottom: -10px; left: 60px;
-                }
-            }
-        }
-    }
-    section.service_cut {
-        & .container-service {
-            & .service-button {
-                & span {
-                    bottom: 0; left: 95px;
-                }
-            }
-        }
-    }
-
+.formulario {
+    height: 41rem;
+    font-size: 2rem;
 }
