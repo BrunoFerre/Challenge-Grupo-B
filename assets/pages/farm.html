@@ -80,7 +80,7 @@
         </header>
 
 
-        <main class="d-flex m-2 ">
+        <main class="d-flex m-2 flex-wrap justify-content-center  ">
             <div class=" card  justify-content-center fs-1 d-flex w-50 container flex-column" id="radios">
                 {{cruzado}}
                 <div class="radio-button-container d-flex gap-3 flex-column">
@@ -122,7 +122,7 @@
                             <h5 class="card-title w-100 text-center mt-5 fw-bold">{{producto.producto}}</h5>
                             <p class="card-text fw-bold">$ {{producto.precio}}</p>
                             <i v-if="carrito.some( fav =>  fav._id == producto._id)" role="button" class="btn-danger" @click="() => local( producto, 'remover' )"> Ya se encuentra en el carro de compras</i>
-                            <button v-if="producto.disponibles == 0 " href="#" class="btn text-center "  disabled><i class="bi bi-cart"></i></button>  
+                            <button v-if="producto.disponibles == 0 " href="#" class="btn text-center " disabled><i class="bi bi-cart"></i></button>  
                             <li v-else href="#"  @click="() => local( producto, 'agregar' )" class="btn card-button"><i class="bi bi-cart"></i></li>
                         </div>
                     </div>
