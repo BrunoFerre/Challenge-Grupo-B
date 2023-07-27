@@ -54,19 +54,12 @@ const options = {
             this.filtroMayor = this.arrayJugueteria.sort((a, b) => b.precio - a.precio)
             this.arrayCruzado = this.filtroMayor
         },
-        filtroGato() {
-            this.filtroCat = this.arrayJugueteria.filter(animal => animal.descripcion == this.inputs)
-            console.log(this.filtroCat);
-            // console.log(this.filtroCat);
-        }
     },
     computed: {
         cruzado() {
             this.arrayCruzado = this.arrayJugueteria.filter(producto => {
-                return producto.producto.toLowerCase().includes(this.inputs)
+                return producto.producto.toLowerCase().includes(this.filtroCat)
             })
-            //  console.log(this.inputs);
-            //  console.log(this.arrayCruzado);
         }
     }
 }

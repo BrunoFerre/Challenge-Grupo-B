@@ -24,6 +24,7 @@ const options = {
             .then(respuesta => respuesta.json())
             .then(datosApi => {
                 this.arrayFarmacia = datosApi.filter(producto => producto.categoria == 'farmacia')
+                this.arrayFarmacia.sort((a, b) => a.disponibles - b.disponibles)
                 this.productosStockbajo = this.arrayFarmacia.filter(producto => producto.disponibles <= 5)
             })
     },
