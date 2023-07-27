@@ -12,7 +12,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="shortcut icon" href="../images/logo.jpg" type="image/x-icon">
     <link rel="stylesheet" href="../style/style.css">
-    <title>Farmacia || Littel broder</title>
+    <title>Carrito de Compras || Littel broder</title>
 </head>
 
 <body class="text-bg-body-info">
@@ -24,7 +24,7 @@
                 <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
                     <ul class="navbar-nav align-items-center">
                         <li class="nav-item"><a class="nav-link" href="../../index.html">Inicio</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="./carrito.html">Carrito</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="">Detalles</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Farmacia</a></li>
                         <li class="nav-item"> <a class="nav-link" href="./toys.html">Juguetes</a></li>
                         <li class="nav-item"><a class="nav-link" href="./contact.html">Contacto</a></li>
@@ -67,7 +67,6 @@
                 </transition>
             </div>
         </nav>
-
         <header class="d-flex align-items-center justify-content-end">
             <div class="container-header">
                 <h3><span>bienvenido</span> a DoLittle pet shop</h3>
@@ -79,102 +78,72 @@
                 </path>
             </svg>
         </header>
-
-
-        <main class="d-flex m-2 ">
-            <div class=" card  justify-content-center fs-1 d-flex w-50 container flex-column" id="radios">
-                {{cruzado}}
-                <div class="radio-button-container d-flex gap-3 flex-column">
-                    <div class="d-flex gap-4">
-                        <label class="d-flex gap-4 m-3">
-                            <input type="radio" name="radios" value="rr" v-model="catAnimal">Perro
-                        </label>
-                        <label class="d-flex gap-4 m-3">
-                            <input type="radio" name="radios" value="gat" v-model="catAnimal">Gato
-                        </label>
-                    </div>
-                    <div class="radio-button d-flex gap-1 m-3">
-                        <input type="radio" class="radio-button__input" id="mayor" name="radio"
-                            @:click="filtroPrecioMayor()">
-                        <label class="radio-button__label" for="mayor">
-                            <span class="radio-button__custom"></span>
-                            Mayor-Menor
-                        </label>
-                    </div>
-                    <div class="radio-button d-flex gap-1 m-3">
-                        <input type="radio" class="radio-button__input" id="menor" name="radio"
-                            @:click="filtroPrecioMenor()">
-                        <label class="radio-button__label" for="menor">
-                            <span class="radio-button__custom"></span>
-                            Menor-Mayor
-                        </label>
-                    </div>
-
+        <main class="d-flex align-items-center justify-content-center text-center flex-column">
+            <h1>CARRITOS DE COMPRAS</h1>
+            <div class="d-flex flex-wrap gap-3 align-items-center container justify-content-center">
+                <template v-if="carrito.length>0" v-for="producto of carrito">
+                    <article class="card shadow-lg p-3 mb-5 bg-body-tertiary rounded fs-2 col-2" id="cardCarrito">
+                        <img class="card-img-top" id="cardCarrito-img" v-bind:src="producto.imagen" alt="Title">
+                        <div class="card-body-carrito d-flex gap-4 flex-column">
+                            <h3 class="card-title fs-2 fw-bold"> {{ producto.producto }} </h3>
+                            <p class="card-text fs-3">$ {{ producto.precio }} </p>
+                            <p  class="card-text">{{producto.categoria}}</p>
+                        </div>
+                        <div class="card-footer-carrito">
+                            <li class="btn btn-danger" @:click="borrarcarrito(producto._id)"><i class="bi bi-cart-x-fill"></i></li>
+                        </div>
+                    </article>  
+                </template>
+                <article v-else>
+                    <h2>Hasta ahora no tienes productos</h2>
+                </article>
+            </div>
+        </main>
+        <footer class="footer">
+            <div class="container d-flex align-items-center justify-content-around mb-5">
+                <div class="image">
+                    <img class="img-fluid" src="../images/logo.png">
+                </div>
+    
+                <div>
+                    <h2>Acerca de</h2>
+                    <p><i class="fa-solid fa-location-dot"></i> Paraguay 2334 5 F </p>
+                    <p><i class="fa-solid fa-phone"></i> 12-3456-7890</p>
+                    <p><i class="fa-solid fa-clock"></i> Lun-Dom: 8AM - 8PM</p>
+                </div>
+    
+                <div>
+                    <h2>Blogs Recientes</h2>
+                    <a><i class="fa-regular fa-comment-dots"></i> Consejos y trucos: Primer aseo del cachorro</a>
+                    <a><i class="fa-regular fa-comment-dots"></i> Consejos para gatos </a>
+                    <a><i class="fa-regular fa-comment-dots"></i> Alimentacion y nutricion de mascotas</a>
                 </div>
             </div>
-           
-
-            <div class="d-flex flex-wrap gap-3 align-items-center container justify-content-center">
-                <template v-if="arrayCruzado.length>0" v-for="producto of arrayCruzado">
-                    <div data-aos="fade-up" class="cardProductoF shadow-lg p-3 mb-5 bg-body-tertiary rounded fs-2">
-                        <img :src="producto.imagen" class="card-img-topF" alt="...">
-                        <div class="card-bodyF d-flex flex-wrap justify-content-between gap-3">
-                            <h5 class="card-title w-100 text-center mt-5 fw-bold">{{producto.producto}}</h5>
-                            <p class="card-text fw-bold">$ {{producto.precio}}</p>
-                            <i v-if="carrito.some( fav =>  fav._id == producto._id)" role="button" class="btn-danger" @click="() => local( producto, 'remover' )"> Ya se encuentra en le carro de compras</i>
-                            <li v-else href="#"  @click="() => local( producto, 'agregar' )" class="btn card-button"><i class="bi bi-cart"></i></li>
-                        </div>
-                    </div>
-                </template>
+    
+            <img class="img-fluid img-wave" src="../images/white_top_wave.png">
+    
+            <div class="icons">
+                <a href="" class="btn btn-white"><i class="fa-brands fa-facebook"></i> Facebook </a>
+                <a href="" class="btn btn-white"><i class="fa-brands fa-twitter"></i> Twitter </a>
+                <a href="" class="btn btn-white"><i class="fa-brands fa-instagram"></i> Instagram </a>
+                <a href="" class="btn btn-white"><i class="fa-brands fa-linkedin"></i> Linkedin </a>
+                <a href="" class="btn btn-white"><i class="fa-brands fa-pinterest"></i> Pinterest </a>
             </div>
+    
+            <div class="footer-text">
+                © 2023 Pet Shop All Rights Reserved
+            </div>
+        </footer>
     </div>
-    </main>
-    </div>
-
-    <footer class="footer">
-        <div class="container d-flex align-items-center justify-content-around mb-5">
-            <div class="image">
-                <img class="img-fluid" src="../images/logo.png">
-            </div>
-
-            <div>
-                <h2>Acerca de</h2>
-                <p><i class="fa-solid fa-location-dot"></i> Paraguay 2334 5 F </p>
-                <p><i class="fa-solid fa-phone"></i> 12-3456-7890</p>
-                <p><i class="fa-solid fa-clock"></i> Lun-Dom: 8AM - 8PM</p>
-            </div>
-
-            <div>
-                <h2>Blogs Recientes</h2>
-                <a><i class="fa-regular fa-comment-dots"></i> Consejos y trucos: Primer aseo del cachorro</a>
-                <a><i class="fa-regular fa-comment-dots"></i> Consejos para gatos </a>
-                <a><i class="fa-regular fa-comment-dots"></i> Alimentacion y nutricion de mascotas</a>
-            </div>
-        </div>
-
-        <img class="img-fluid img-wave" src="../images/white_top_wave.png">
-
-        <div class="icons">
-            <a href="" class="btn btn-white"><i class="fa-brands fa-facebook"></i> Facebook </a>
-            <a href="" class="btn btn-white"><i class="fa-brands fa-twitter"></i> Twitter </a>
-            <a href="" class="btn btn-white"><i class="fa-brands fa-instagram"></i> Instagram </a>
-            <a href="" class="btn btn-white"><i class="fa-brands fa-linkedin"></i> Linkedin </a>
-            <a href="" class="btn btn-white"><i class="fa-brands fa-pinterest"></i> Pinterest </a>
-        </div>
-
-        <div class="footer-text">
-            © 2023 Pet Shop All Rights Reserved
-        </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-        crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
-    <script src="../js/farm.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script>
+            AOS.init();
+        </script>
+        <script src="../js/shopping.js"></script>
 </body>
-
 </html>
+        

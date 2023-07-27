@@ -13,7 +13,8 @@ const options = {
             productosStockbajo:[],
             arrayNormal:[],
             arrayCruzado:[],
-            catAnimal:[]
+            catAnimal:[],
+            carrito:[]
         }
     },
     created(){
@@ -21,18 +22,8 @@ const options = {
         .then(respuesta => respuesta.json())
         .then(datosApi =>{
            this.arrayFarmacia = datosApi.filter(producto => producto.categoria == 'farmacia')
-           console.log(this.arrayFarmacia);
-
            this.productosStockbajo = this.arrayFarmacia.filter(producto=> producto.disponibles <=5 )
-
-           console.log(this.productosStockbajo)
         })
-    },
-    mounted() {
-        window.addEventListener("scroll", this.onScroll);
-    },
-    beforeDestroy() {
-        window.removeEventListener("scroll", this.onScroll);
     },
     methods: {
         toggleActive() {
@@ -44,25 +35,33 @@ const options = {
         filtroPrecioMenor(){
             this.filtroMenor = this.arrayCruzado.sort((a,b) => a.precio - b.precio)
             this.arrayCruzado = this.filtroMenor
-           console.log(this.productosStockbajo);
-
         },
         filtroPrecioMayor(){
             this.filtroMayor = this.arrayCruzado.sort((a,b) => b.precio - a.precio)
             this.arrayCruzado = this.filtroMayor
-           console.log(this.productosStockbajo);
-
         },
         filtroAl(){
            this.arrayCruzado= this.productosStockbajo
     },
+    local(producto,accion){
+        if (accion == 'agregar' ) {
+            this.carrito.push(producto)
+            }else{
+                this.carrito.filter(carr=> carr._id != producto._id)
+            }
+        localStorage.setItem('carrito', JSON.stringify(this.carrito))
+    }
+    },
+    mounted() {
+        window.addEventListener("scroll", this.onScroll);
+    },
+    beforeDestroy() {
+        window.removeEventListener("scroll", this.onScroll);
     },
     computed:{
         cruzado(){
             this.arrayCruzado = this.productosStockbajo.filter(producto => { 
                 return producto.producto.toLowerCase().includes( this.catAnimal ) })
-                console.log(this.catAnimal);
-                console.log(this.arrayCruzado);
             }
     }
 }

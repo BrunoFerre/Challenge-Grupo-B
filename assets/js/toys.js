@@ -1,27 +1,28 @@
-const { createApp } = Vue
 
-createApp({
+const { createApp } = Vue
+const options = {
     data() {
         return {
-            arrayTarjetas: [],
-            precioMenor: [],
-            precioMayor: [],
-            arrayAnimal: [],
-            checkAnimal: "",
             active: false,
             isScrolled: false,
+            arrayJugueteria:[],
+            filtroMayor:[],
+            filtroMenor:[],
+            aleatorio:[],
+            arrayCruzado:[],
+            filtroCat:[],
+            inputs:'',
+            carrito:[]
         }
     },
-    created() {      //api
+    created(){
         fetch('https://mindhub-xj03.onrender.com/api/petshop')
-            .then(respuesta => respuesta.json())
-            .then(datosPetShop => {
-                this.arrayTarjetas = datosPetShop.filter(producto => producto.categoria == "jugueteria")
-
-                /*this.menor = this.arrayTarjetas.filter(juguete => juguete.precio > this.precioMenor)*/
-                /*this.arrayCategorias = [... new Set(this.pastEvents.map(evento => evento.category))]*/
-            })
-            .catch(error => console.log(error))
+        .then(respuesta => respuesta.json())
+        .then(datosApi =>{
+           this.arrayJugueteria = datosApi.filter(producto => producto.categoria == 'jugueteria')
+           this.back = this.arrayJugueteria
+           console.log(this.arrayJugueteria);
+        })
     },
     mounted() {
         window.addEventListener("scroll", this.onScroll);
@@ -30,30 +31,42 @@ createApp({
         window.removeEventListener("scroll", this.onScroll);
     },
     methods: {
-        filtroAnimal() {
-            this.arrayAnimal = this.arrayTarjetas.filter(producto => producto.descripcion = this.checkAnimal.toString())
-            this.arrayTarjetas = this.arrayAnimal
-            console.log(this.arrayTarjetas)
-        },
-        filtroPrecioMayor() {
-            this.precioMayor = this.arrayTarjetas.sort((a, b) => b.precio - a.precio)
-            console.log(this.precioMayor)
-            this.arrayTarjetas = this.precioMayor
-        },
-        filtroPrecioMenor() {
-            this.precioMenor = this.arrayTarjetas.sort((a, b) => a.precio - b.precio)
-            console.log(this.precioMenor)
-            this.arrayTarjetas = this.precioMenor
-        }, toggleActive() {
+        toggleActive() {
             this.active = !this.active
         },
         onScroll() {
             this.isScrolled = window.scrollY > 0;
-        }
-        /*filtrosCruzados(){                    
-            this.arrayFiltrosCruzados = this.arrayTarjetas.filter(juguete => {
-                return juguete.producto.toLowerCase().includes(this.inputSearch.toLowerCase()) && (this.arrayCheckBox.includes(juguete.categoria) || this.arrayCheckBox.length == 0)
-            })
-        }*/
+        },
+        local(producto,accion){
+            if (accion == 'agregar' ) {
+                this.carrito.push(producto)
+            }else{
+                this.carrito = this.carrito.filter(carr=> carr._id != producto._id)
+            }
+            localStorage.setItem('carrito', JSON.stringify(this.carrito))
+        },
+        filtroPrecioMenor(){
+            this.filtroMenor = this.arrayJugueteria.sort((a,b) => a.precio - b.precio)
+            this.arrayCruzado = this.filtroMenor
+
+        },
+        filtroPrecioMayor(){
+            this.filtroMayor = this.arrayJugueteria.sort((a,b) => b.precio - a.precio)
+            this.arrayCruzado = this.filtroMayor
+        },
+    filtroGato(){
+        this.filtroCat = this.arrayJugueteria.filter(animal => animal.descripcion.toLowerCase().includes(this.inputs))
+        // console.log(this.filtroCat);
     }
-}).mount("#app")
+    },
+     computed:{
+         cruzado(){
+             this.arrayCruzado = this.arrayJugueteria.filter(producto => { 
+                 return producto.producto.toLowerCase().includes( this.inputs ) })
+                //  console.log(this.inputs);
+                //  console.log(this.arrayCruzado);
+             }}
+}
+     
+const app = createApp(options);
+app.mount('#app');
