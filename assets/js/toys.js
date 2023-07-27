@@ -1,28 +1,27 @@
-
 const { createApp } = Vue
-const options = {
+
+createApp({
     data() {
         return {
+            arrayTarjetas: [],
+            precioMenor: [],
+            precioMayor: [],
+            arrayAnimal: [],
+            checkAnimal: "",
             active: false,
             isScrolled: false,
-            arrayJugueteria:[],
-            categorias:[],
-            filtroMayor:[],
-            filtroMenor:[],
-            aleatorio:[],       
-            arrayNormal:[],
-            arrayCruzado:[],
-            catAnimal:[],
-            arrayPerro:[],
         }
     },
-    created(){
+    created() {      //api
         fetch('https://mindhub-xj03.onrender.com/api/petshop')
-        .then(respuesta => respuesta.json())
-        .then(datosApi =>{
-           this.arrayJugueteria = datosApi.filter(producto => producto.categoria == 'jugueteria')
-           console.log(this.arrayJugueteria);
-        })
+            .then(respuesta => respuesta.json())
+            .then(datosPetShop => {
+                this.arrayTarjetas = datosPetShop.filter(producto => producto.categoria == "jugueteria")
+
+                /*this.menor = this.arrayTarjetas.filter(juguete => juguete.precio > this.precioMenor)*/
+                /*this.arrayCategorias = [... new Set(this.pastEvents.map(evento => evento.category))]*/
+            })
+            .catch(error => console.log(error))
     },
     mounted() {
         window.addEventListener("scroll", this.onScroll);
@@ -31,34 +30,30 @@ const options = {
         window.removeEventListener("scroll", this.onScroll);
     },
     methods: {
-        toggleActive() {
+        filtroAnimal() {
+            this.arrayAnimal = this.arrayTarjetas.filter(producto => producto.descripcion = this.checkAnimal.toString())
+            this.arrayTarjetas = this.arrayAnimal
+            console.log(this.arrayTarjetas)
+        },
+        filtroPrecioMayor() {
+            this.precioMayor = this.arrayTarjetas.sort((a, b) => b.precio - a.precio)
+            console.log(this.precioMayor)
+            this.arrayTarjetas = this.precioMayor
+        },
+        filtroPrecioMenor() {
+            this.precioMenor = this.arrayTarjetas.sort((a, b) => a.precio - b.precio)
+            console.log(this.precioMenor)
+            this.arrayTarjetas = this.precioMenor
+        }, toggleActive() {
             this.active = !this.active
         },
         onScroll() {
             this.isScrolled = window.scrollY > 0;
-        },
-        filtroPrecioMenor(){
-            this.filtroMenor = this.arrayCruzado.sort((a,b) => a.precio - b.precio)
-            this.arrayCruzado = this.filtroMenor
-           console.log(this.productosStockbajo);
-
-        },
-        filtroPrecioMayor(){
-            this.filtroMayor = this.arrayCruzado.sort((a,b) => b.precio - a.precio)
-            this.arrayCruzado = this.filtroMayor
-           console.log(this.productosStockbajo);
-
-        },
-        filtroAl(){
-           this.arrayCruzado= this.productosStockbajo
-    },
-    },
-    computed:{
-        cruzado(){
-            this.arrayCruzado = this.arrayJugueteria.filter(producto => { 
-                return producto.producto.toLowerCase().includes( this.catAnimal )})
-            }
+        }
+        /*filtrosCruzados(){                    
+            this.arrayFiltrosCruzados = this.arrayTarjetas.filter(juguete => {
+                return juguete.producto.toLowerCase().includes(this.inputSearch.toLowerCase()) && (this.arrayCheckBox.includes(juguete.categoria) || this.arrayCheckBox.length == 0)
+            })
+        }*/
     }
-}
-const app = createApp(options);
-app.mount('#app');
+}).mount("#app")
