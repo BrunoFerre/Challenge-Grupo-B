@@ -793,7 +793,6 @@ section.gallery {
     }
 }
 
->>>>>>> e817505db5c6ea6cf4060944f0e9994e5e6c8b3b
 @media (max-width:991px) {
     html {
         font-size: 55%;
@@ -873,15 +872,6 @@ section.gallery {
     }
 }
 
-<<<<<<< HEAD
-@media (max-width:450px) {
-    html {
-        font-size: 50%;
-    }
-    nav .form-login {
-        width: 90%;
-    }
-=======
 .cover img {
     height: 100%;
     width: 100%;
@@ -962,5 +952,4 @@ p {
 .formulario {
     height: 41rem;
     font-size: 2rem;
->>>>>>> e817505db5c6ea6cf4060944f0e9994e5e6c8b3b
 }
