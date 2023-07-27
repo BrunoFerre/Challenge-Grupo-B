@@ -5,25 +5,30 @@ const options = {
         return {
             active: false,
             isScrolled: false,
-            arrayFarmacia:[],
-            categorias:[],
-            filtroMayor:[],
-            filtroMenor:[],
-            aleatorio:[],
-            productosStockbajo:[],
-            arrayNormal:[],
-            arrayCruzado:[],
-            catAnimal:[],
-            carrito:[]
+            arrayFarmacia: [],
+            categorias: [],
+            filtroMayor: [],
+            filtroMenor: [],
+            aleatorio: [],
+            productosStockbajo: [],
+            arrayNormal: [],
+            arrayCruzado: [],
+            catAnimal: [],
+            carrito: [],
+            arrayFarm: []
         }
     },
-    created(){
+    created() {
+        this.carrito = JSON.parse(localStorage.getItem('carrito')) ?? []
         fetch('https://mindhub-xj03.onrender.com/api/petshop')
-        .then(respuesta => respuesta.json())
-        .then(datosApi =>{
-           this.arrayFarmacia = datosApi.filter(producto => producto.categoria == 'farmacia')
-           this.productosStockbajo = this.arrayFarmacia.filter(producto=> producto.disponibles <=5 )
-        })
+            .then(respuesta => respuesta.json())
+            .then(datosApi => {
+                this.arrayFarmacia = datosApi.filter(producto => producto.categoria == 'farmacia')
+                this.productosStockbajo = this.arrayFarmacia.filter(producto => producto.disponibles <= 5)
+            })
+    },
+    beforeUpdate() {
+        console.log(this.carrito);
     },
     methods: {
         toggleActive() {
@@ -32,25 +37,23 @@ const options = {
         onScroll() {
             this.isScrolled = window.scrollY > 0;
         },
-        filtroPrecioMenor(){
-            this.filtroMenor = this.arrayCruzado.sort((a,b) => a.precio - b.precio)
+        filtroPrecioMenor() {
+            this.filtroMenor = this.arrayCruzado.sort((a, b) => a.precio - b.precio)
             this.arrayCruzado = this.filtroMenor
         },
-        filtroPrecioMayor(){
-            this.filtroMayor = this.arrayCruzado.sort((a,b) => b.precio - a.precio)
+        filtroPrecioMayor() {
+            this.filtroMayor = this.arrayCruzado.sort((a, b) => b.precio - a.precio)
             this.arrayCruzado = this.filtroMayor
         },
-        filtroAl(){
-           this.arrayCruzado= this.productosStockbajo
-    },
-    local(producto,accion){
-        if (accion == 'agregar' ) {
-            this.carrito.push(producto)
-            }else{
-                this.carrito.filter(carr=> carr._id != producto._id)
+        filtroAl() {
+            this.arrayCruzado = this.productosStockbajo
+        },
+        local(producto, accion) {
+            if (accion == 'agregar') {
+                this.carrito.push(producto)
             }
-        localStorage.setItem('carrito', JSON.stringify(this.carrito))
-    }
+            localStorage.setItem('carrito', JSON.stringify(this.carrito))
+        }
     },
     mounted() {
         window.addEventListener("scroll", this.onScroll);
@@ -58,11 +61,12 @@ const options = {
     beforeDestroy() {
         window.removeEventListener("scroll", this.onScroll);
     },
-    computed:{
-        cruzado(){
-            this.arrayCruzado = this.productosStockbajo.filter(producto => { 
-                return producto.producto.toLowerCase().includes( this.catAnimal ) })
-            }
+    computed: {
+        cruzado() {
+            this.arrayCruzado = this.productosStockbajo.filter(producto => {
+                return producto.producto.toLowerCase().includes(this.catAnimal)
+            })
+        }
     }
 }
 const app = createApp(options);

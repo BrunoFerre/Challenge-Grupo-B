@@ -5,24 +5,26 @@ const options = {
         return {
             active: false,
             isScrolled: false,
-            arrayJugueteria:[],
-            filtroMayor:[],
-            filtroMenor:[],
-            aleatorio:[],
-            arrayCruzado:[],
-            filtroCat:[],
-            inputs:'',
-            carrito:[]
+            arrayJugueteria: [],
+            filtroMayor: [],
+            filtroMenor: [],
+            aleatorio: [],
+            arrayCruzado: [],
+            filtroCat: [],
+            inputs: '',
+            carrito: [],
         }
     },
-    created(){
+    created() {
+        this.carrito = JSON.parse(localStorage.getItem('carrito')) ?? []
         fetch('https://mindhub-xj03.onrender.com/api/petshop')
-        .then(respuesta => respuesta.json())
-        .then(datosApi =>{
-           this.arrayJugueteria = datosApi.filter(producto => producto.categoria == 'jugueteria')
-           this.back = this.arrayJugueteria
-           console.log(this.arrayJugueteria);
-        })
+            .then(respuesta => respuesta.json())
+            .then(datosApi => {
+                this.arrayJugueteria = datosApi.filter(producto => producto.categoria == 'jugueteria')
+                this.arrayJugueteria.sort((a, b) => a.disponibles - b.disponibles)
+                console.log(this.arrayJugueteria);
+                console.log(this.carrito);
+            })
     },
     mounted() {
         window.addEventListener("scroll", this.onScroll);
@@ -37,36 +39,37 @@ const options = {
         onScroll() {
             this.isScrolled = window.scrollY > 0;
         },
-        local(producto,accion){
-            if (accion == 'agregar' ) {
+        local(producto, accion) {
+            if (accion == 'agregar') {
                 this.carrito.push(producto)
-            }else{
-                this.carrito = this.carrito.filter(carr=> carr._id != producto._id)
             }
             localStorage.setItem('carrito', JSON.stringify(this.carrito))
         },
-        filtroPrecioMenor(){
-            this.filtroMenor = this.arrayJugueteria.sort((a,b) => a.precio - b.precio)
+        filtroPrecioMenor() {
+            this.filtroMenor = this.arrayJugueteria.sort((a, b) => a.precio - b.precio)
             this.arrayCruzado = this.filtroMenor
 
         },
-        filtroPrecioMayor(){
-            this.filtroMayor = this.arrayJugueteria.sort((a,b) => b.precio - a.precio)
+        filtroPrecioMayor() {
+            this.filtroMayor = this.arrayJugueteria.sort((a, b) => b.precio - a.precio)
             this.arrayCruzado = this.filtroMayor
         },
-    filtroGato(){
-        this.filtroCat = this.arrayJugueteria.filter(animal => animal.descripcion.toLowerCase().includes(this.inputs))
-        // console.log(this.filtroCat);
-    }
+        filtroGato() {
+            this.filtroCat = this.arrayJugueteria.filter(animal => animal.descripcion == this.inputs)
+            console.log(this.filtroCat);
+            // console.log(this.filtroCat);
+        }
     },
-     computed:{
-         cruzado(){
-             this.arrayCruzado = this.arrayJugueteria.filter(producto => { 
-                 return producto.producto.toLowerCase().includes( this.inputs ) })
-                //  console.log(this.inputs);
-                //  console.log(this.arrayCruzado);
-             }}
+    computed: {
+        cruzado() {
+            this.arrayCruzado = this.arrayJugueteria.filter(producto => {
+                return producto.producto.toLowerCase().includes(this.inputs)
+            })
+            //  console.log(this.inputs);
+            //  console.log(this.arrayCruzado);
+        }
+    }
 }
-     
+
 const app = createApp(options);
 app.mount('#app');

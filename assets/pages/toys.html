@@ -99,17 +99,19 @@
                   </div>
             </div>
             <div  class="d-flex flex-wrap gap-3 align-items-center container justify-content-center">   
-            <template v-if="arrayCruzado.length>0" v-for="producto of arrayCruzado" >
+            <template v-if="arrayJugueteria.length>0" v-for="producto of arrayJugueteria" >
                 <div data-aos="fade-up" class="cardProductoF shadow-lg p-3 mb-5 bg-body-tertiary rounded fs-2">
+                    <button v-if="producto.disponibles <=5" href="#" class="btn btn-danger" id="" disabled>Ultimas unidades {{producto.disponibles}}</button>
+                    <button v-if="producto.disponibles > 5 " href="#" class="btn text-center btn-success"  disabled>Stocks disponibles {{producto.disponibles}}</button>
                     <img :src="producto.imagen" class="card-img-topF" alt="...">
                     <div class="card-bodyF d-flex flex-wrap justify-content-between gap-3">
                       <h5 class="card-title w-100 text-center mt-5 fw-bold">{{producto.producto}}</h5>
                       <p class="card-text fw-bold">$ {{producto.precio}}</p>
-                      <i v-if="carrito.some( fav =>  fav._id == producto._id)" role="button" class="btn-danger" @click="() => handleClick( producto, 'remover' )"> Ya se encuentra en le carro de compras</i>
+                      <button v-if="producto.disponibles == 0 " href="#" class="btn card-button" disabled>Sin Stocks Disponibles</i></button>
                       <li v-else href="#"  @click="() => local( producto, 'agregar' )" class="btn card-button"><i class="bi bi-cart"></i></li>
                     </div>
                   </div>
-            </template>
+            </template>         
         </div>
     </div>
     </main>

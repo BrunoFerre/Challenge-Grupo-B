@@ -11,7 +11,7 @@ const options = {
     },
     created(){
         this.carrito = JSON.parse(localStorage.getItem('carrito')) ?? []
-        console.log(this.carrito);
+        console.log(this.carrito)
     },
     methods: {
         toggleActive() {

@@ -116,7 +116,8 @@
 
             <div class="d-flex flex-wrap gap-3 align-items-center container justify-content-center">
                 <template v-if="arrayCruzado.length>0" v-for="producto of arrayCruzado">
-                    <div data-aos="fade-up" class="cardProductoF shadow-lg p-3 mb-5 bg-body-tertiary rounded fs-2">
+                    <div data-aos="fade-up" class="cardProductoF shadow-lg p-3 mb-5 bg-body-tertiary rounded fs-2 align-items-center" >
+                        <button href="#" class="btn text-center" id="btnRojo" disabled>Ultimas unidades {{producto.disponiblesS}}</button>
                         <img :src="producto.imagen" class="card-img-topF" alt="...">
                         <div class="card-bodyF d-flex flex-wrap justify-content-between gap-3">
                             <h5 class="card-title w-100 text-center mt-5 fw-bold">{{producto.producto}}</h5>

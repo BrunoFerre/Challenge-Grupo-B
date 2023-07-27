@@ -986,3 +986,7 @@ p {
     padding: 2rem;
     gap: 3rem;
    }
+   #btnRojo{
+    background-color: red;
+    color: white;
+   }
