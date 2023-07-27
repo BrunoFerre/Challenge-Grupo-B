@@ -6,13 +6,6 @@ const options = {
             isScrolled: false,
         }
     },
-    created() {
-        fetch('https://mindhub-xj03.onrender.com/api/petshop')
-        .then(res => res.json())
-        .then(data => {
-        
-        })
-    },
     mounted() {
         window.addEventListener("scroll", this.onScroll);
     },

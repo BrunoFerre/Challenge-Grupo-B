@@ -794,4 +794,13 @@ section.gallery {
             }
         }
     }
+    .footer .container {
+        gap: 5rem;
+    }
+    .footer .container .image {
+        width: 60%;
+    }
+    .footer .container .footer-about {
+        flex: 1 1 20rem;
+    }
 }
