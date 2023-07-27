@@ -4,15 +4,13 @@ const options = {
         return {
             active: false,
             isScrolled: false,
-            productosDestacados: [],
         }
     },
     created() {
         fetch('https://mindhub-xj03.onrender.com/api/petshop')
         .then(res => res.json())
         .then(data => {
-            const productosDestacados = data.sort((a, b) => a.precio - b.precio).slice(0,2);
-            this.productosDestacados = productosDestacados;
+        
         })
     },
     mounted() {
